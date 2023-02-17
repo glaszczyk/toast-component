@@ -28,6 +28,11 @@ function ToastPlayground() {
     setVariant(defaultVariant);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleAddToast();
+  };
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -35,7 +40,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
       <ToastShelf data={toastList} onRemove={handleToastClose} />
-      <div className={styles.controlsWrapper}>
+      <form className={styles.controlsWrapper} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -78,10 +83,10 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={handleAddToast}>Pop Toast!</Button>
+            <Button type="submit">Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
