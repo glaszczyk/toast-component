@@ -11,15 +11,14 @@ const defaultVariant = VARIANT_OPTIONS[0];
 export const ToastBuilder = () => {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(defaultVariant);
-  const { toastList, setToastList } = React.useContext(ToastContext);
+  const { addToast } = React.useContext(ToastContext);
 
   const handleAddToast = () => {
     const newToast = {
-      id: window.crypto.randomUUID(),
       variant,
       message,
     };
-    setToastList([...toastList, newToast]);
+    addToast(newToast);
     setMessage("");
     setVariant(defaultVariant);
   };
