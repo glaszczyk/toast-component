@@ -7,10 +7,13 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const [message, setMessage] = React.useState('')
+  const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0])
+
   return (
     <div className={styles.wrapper}>
       <header>
-        <img alt="Cute toast mascot" src="/toast.png" />
+        <img alt="Cute toast mascot" src="/toast.png"/>
         <h1>Toast Playground</h1>
       </header>
 
@@ -19,12 +22,12 @@ function ToastPlayground() {
           <label
             htmlFor="message"
             className={styles.label}
-            style={{ alignSelf: 'baseline' }}
+            style={{alignSelf: 'baseline'}}
           >
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea id="message" value={message} onChange={event => setMessage(event.target.value)} className={styles.messageInput}/>
           </div>
         </div>
 
@@ -33,22 +36,26 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
-            {/* TODO Other Variant radio buttons here */}
+            {VARIANT_OPTIONS.map(option => {
+              return (
+                <label key={option} htmlFor={`variant-${option}`}>
+                  <input
+                    id={`variant-${option}`}
+                    type="radio"
+                    name="variant"
+                    value={option}
+                    checked={option === variant}
+                    onChange={event => setVariant(event.target.value)}
+                  />
+                  {option}
+                </label>
+              )
+            })}
           </div>
         </div>
 
         <div className={styles.row}>
-          <div className={styles.label} />
+          <div className={styles.label}/>
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
