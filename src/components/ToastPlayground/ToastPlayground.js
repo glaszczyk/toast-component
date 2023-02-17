@@ -13,11 +13,6 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(defaultVariant);
 
-  const handleToastClose = (id) => {
-    const nextToastList = toastList.filter((item) => item.id !== id);
-    setToastList(nextToastList);
-  };
-
   const handleAddToast = () => {
     const newToast = {
       id: window.crypto.randomUUID(),
@@ -40,7 +35,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf data={toastList} onRemove={handleToastClose} />
+      <ToastShelf />
       <form className={styles.controlsWrapper} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <label
