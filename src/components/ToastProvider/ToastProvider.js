@@ -1,8 +1,9 @@
 import React from "react";
+const defaultValue = [];
 
 export const ToastContext = React.createContext({});
 export const ToastProvider = ({ children }) => {
-  const [toastList, setToastList] = React.useState([]);
+  const [toastList, setToastList] = React.useState(defaultValue);
 
   const addToast = React.useCallback(
     (toast) => {
@@ -29,6 +30,7 @@ export const ToastProvider = ({ children }) => {
       setToastList,
       addToast,
       removeToast,
+      removeAllToasts: () => setToastList(defaultValue),
     }),
     [toastList, addToast, removeToast]
   );

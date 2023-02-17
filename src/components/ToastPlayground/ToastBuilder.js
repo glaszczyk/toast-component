@@ -11,8 +11,20 @@ const defaultVariant = VARIANT_OPTIONS[0];
 export const ToastBuilder = () => {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(defaultVariant);
-  const { addToast } = React.useContext(ToastContext);
+  const { addToast, removeAllToasts } = React.useContext(ToastContext);
 
+  React.useEffect(() => {
+    const handleKeydown = (event) => {
+      if (event.code !== "Escape") {
+        return;
+      }
+      removeAllToasts();
+    };
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, [removeAllToasts]);
   const handleAddToast = () => {
     const newToast = {
       variant,
