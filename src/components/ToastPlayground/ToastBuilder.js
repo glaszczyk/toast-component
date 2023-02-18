@@ -3,6 +3,8 @@ import React from "react";
 import { ToastContext } from "../ToastProvider";
 import Button from "../Button";
 
+import { useEscapeKey } from "../../hooks/useEscapeKey";
+
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
@@ -12,19 +14,8 @@ export const ToastBuilder = () => {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(defaultVariant);
   const { addToast, removeAllToasts } = React.useContext(ToastContext);
+  useEscapeKey(removeAllToasts);
 
-  React.useEffect(() => {
-    const handleKeydown = (event) => {
-      if (event.code !== "Escape") {
-        return;
-      }
-      removeAllToasts();
-    };
-    window.addEventListener("keydown", handleKeydown);
-    return () => {
-      window.removeEventListener("keydown", handleKeydown);
-    };
-  }, [removeAllToasts]);
   const handleAddToast = () => {
     const newToast = {
       variant,
